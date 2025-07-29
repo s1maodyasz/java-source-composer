@@ -3,18 +3,34 @@ package com.github.s1maodyasz.jsc.model;
 import javax.lang.model.element.Modifier;
 import java.util.List;
 
-// This can be a field or a parameter
-public abstract class VariableDef implements Def {
+public abstract class VariableDef implements StatementDef {
 
-    protected final List<Modifier> modifiers;
-    protected final List<AnnotationUsage> annotations;
-    protected final TypeDef type;
-    protected final String name;
+    private final List<Modifier> modifiers;
+    private final List<AnnotationUsage> annotations;
+    private final TypeDef type;
+    private final String name;
 
     public VariableDef(List<Modifier> modifiers, List<AnnotationUsage> annotations, TypeDef type, String name) {
         this.modifiers = modifiers;
         this.annotations = annotations;
-        this.name = name;
         this.type = type;
+        this.name = name;
     }
+
+    public List<Modifier> getModifiers() {
+        return modifiers;
+    }
+
+    public List<AnnotationUsage> getAnnotations() {
+        return annotations;
+    }
+
+    public TypeDef getType() {
+        return type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }

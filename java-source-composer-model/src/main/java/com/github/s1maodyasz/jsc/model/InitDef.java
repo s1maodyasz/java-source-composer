@@ -11,6 +11,10 @@ public abstract class InitDef {
         this.scope = scope;
     }
 
+    public Scope getScope() {
+        return scope;
+    }
+
     static final class Static extends InitDef {
         public Static(Scope scope) {
             super(scope);
@@ -27,6 +31,18 @@ public abstract class InitDef {
             this.modifier = modifier;
             this.annotations = annotations;
             this.parameters = parameters;
+        }
+
+        public Modifier getModifier() {
+            return modifier;
+        }
+
+        public List<AnnotationUsage> getAnnotations() {
+            return annotations;
+        }
+
+        public List<ParameterDef> getParameters() {
+            return parameters;
         }
     }
 }

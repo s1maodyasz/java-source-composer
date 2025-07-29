@@ -1,9 +1,10 @@
 package com.github.s1maodyasz.jsc.model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public interface Scope {
+// This is a scope of a statement or statement block
+public interface Scope extends StatementDef {
 
     final class Inline implements Scope {
         private final ElementDef element;
@@ -11,17 +12,21 @@ public interface Scope {
         public Inline(ElementDef element) {
             this.element = element;
         }
+
+        public ElementDef getElement() {
+            return element;
+        }
     }
 
     final class Block implements Scope {
-        private final List<StatementDef> statements;
+        private final List<ElementDef> elements;
 
         public Block() {
-            this.statements = new ArrayList<>();
+            this.elements = new LinkedList<>();
         }
 
-        public Block(List<StatementDef> statements) {
-            this.statements = statements;
+        public Block(List<ElementDef> elements) {
+            this.elements = elements;
         }
     }
 
@@ -31,9 +36,5 @@ public interface Scope {
 
     static Scope block() {
         return new Block();
-    }
-
-    static Scope block(List<StatementDef> statements) {
-        return new Block(statements);
     }
 }

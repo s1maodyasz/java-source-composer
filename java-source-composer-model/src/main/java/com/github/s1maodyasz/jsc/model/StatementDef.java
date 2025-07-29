@@ -1,49 +1,64 @@
 package com.github.s1maodyasz.jsc.model;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 public interface StatementDef extends ElementDef {
 
     final class Assignment implements StatementDef {
-        final ExpressionDef left;
-        final ExpressionDef right;
+        private final VariableDef left;
+        private final ElementDef right;
 
-        public Assignment(ExpressionDef left, ExpressionDef right) {
+        public Assignment(VariableDef left, ElementDef right) {
             this.left = left;
             this.right = right;
         }
-    }
 
-    final class Call implements StatementDef {
-        final ExpressionDef target;
-        final List<ExpressionDef> arguments;
+        public VariableDef getLeft() {
+            return left;
+        }
 
-        public Call(ExpressionDef target, List<ExpressionDef> arguments) {
-            this.target = target;
-            this.arguments = arguments;
+        public ElementDef getRight() {
+            return right;
         }
     }
 
-    class If implements StatementDef {
-        final ExpressionDef condition;
-        final Scope then;
-        final Scope otherwise;
+    final class While implements StatementDef {
 
-        public If(ExpressionDef condition, Scope then, Scope otherwise) {
+        private final boolean doFirst;
+        private final ExpressionDef condition;
+        private final Scope scope;
+
+        public While(boolean doFirst, ExpressionDef condition, Scope scope) {
+            this.doFirst = doFirst;
             this.condition = condition;
-            this.then = then;
-            this.otherwise = otherwise;
+            this.scope = scope;
+        }
+
+        public boolean isDoFirst() {
+            return doFirst;
+        }
+
+        public ExpressionDef getCondition() {
+            return condition;
+        }
+
+        public Scope getScope() {
+            return scope;
         }
     }
 
-    final class IfElse extends If {
-        final Map<ExpressionDef, Scope> cases;
+    /**
+     * This probably should be changed if we want to support more recent versions of java
+     */
+    final class Return implements StatementDef {
+        final ExpressionDef expression;
 
-        public IfElse(ExpressionDef condition, Scope then, Scope otherwise, Map<ExpressionDef, Scope> cases) {
-            super(condition, then, otherwise);
-            this.cases = cases;
+        public Return(ExpressionDef expression) {
+            this.expression = expression;
+        }
+
+        public ExpressionDef getExpression() {
+            return expression;
         }
     }
+
+    // TODO, add Try Catch models
 }

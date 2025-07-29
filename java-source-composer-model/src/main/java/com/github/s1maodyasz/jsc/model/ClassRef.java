@@ -1,5 +1,8 @@
 package com.github.s1maodyasz.jsc.model;
 
+/**
+ * Reference to a .class file in the classpath
+ */
 public final class ClassRef {
 
     private final String source;
