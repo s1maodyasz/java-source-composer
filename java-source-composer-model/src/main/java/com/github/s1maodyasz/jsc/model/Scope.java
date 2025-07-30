@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 // This is a scope of a statement or statement block
-public interface Scope extends StatementDef {
+public interface Scope extends ElementDef {
 
     final class Inline implements Scope {
         private final ElementDef element;
@@ -28,6 +28,10 @@ public interface Scope extends StatementDef {
         public Block(List<ElementDef> elements) {
             this.elements = elements;
         }
+
+        public List<ElementDef> getElements() {
+            return elements;
+        }
     }
 
     static Scope inline(ElementDef element) {
@@ -36,5 +40,9 @@ public interface Scope extends StatementDef {
 
     static Scope block() {
         return new Block();
+    }
+
+    static Scope block(List<ElementDef> elements) {
+        return new Block(elements);
     }
 }

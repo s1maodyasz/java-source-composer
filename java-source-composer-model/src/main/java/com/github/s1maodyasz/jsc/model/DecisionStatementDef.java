@@ -1,11 +1,11 @@
 package com.github.s1maodyasz.jsc.model;
 
-public final class SwitchCaseStatementDef {
+public final class DecisionStatementDef implements Def {
 
     private final ExpressionDef condition;
     private final Scope scope;
 
-    public SwitchCaseStatementDef(ExpressionDef condition, Scope scope) {
+    public DecisionStatementDef(ExpressionDef condition, Scope scope) {
         this.condition = condition;
         this.scope = scope;
     }

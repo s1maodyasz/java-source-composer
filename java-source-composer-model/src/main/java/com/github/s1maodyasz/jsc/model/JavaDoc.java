@@ -12,6 +12,11 @@ public final class JavaDoc {
         this.tags = new LinkedHashMap<>();
     }
 
+    public JavaDoc(final List<String> lines, final Map<JavaDocTag, String> tags) {
+        this.lines = Collections.unmodifiableList(lines);
+        this.tags = Collections.unmodifiableMap(tags);
+    }
+
     public List<String> getLines() {
         return lines;
     }

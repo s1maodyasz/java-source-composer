@@ -1,6 +1,7 @@
 package com.github.s1maodyasz.jsc.model;
 
 import javax.lang.model.element.Modifier;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class VariableDef implements StatementDef {
@@ -11,8 +12,8 @@ public abstract class VariableDef implements StatementDef {
     private final String name;
 
     public VariableDef(List<Modifier> modifiers, List<AnnotationUsage> annotations, TypeDef type, String name) {
-        this.modifiers = modifiers;
-        this.annotations = annotations;
+        this.modifiers = Collections.unmodifiableList(modifiers);
+        this.annotations = Collections.unmodifiableList(annotations);
         this.type = type;
         this.name = name;
     }

@@ -1,24 +1,27 @@
 package com.github.s1maodyasz.jsc.model;
 
-import java.lang.reflect.Modifier;
+import javax.lang.model.element.Modifier;
+import java.util.Collections;
 import java.util.List;
 
 public final class MethodDef implements Def {
 
     private final List<Modifier> modifiers;
     private final List<AnnotationUsage> annotations;
-    private final TypeDef product;
-    private final String name;
     private final List<ParameterDef> parameters;
+    private final TypeDef returnType;
+    private final String name;
     private final JavaDoc docs;
+    private final Scope scope;
 
-    public MethodDef(List<Modifier> modifiers, List<AnnotationUsage> annotations, TypeDef product, String name, List<ParameterDef> parameters, JavaDoc docs) {
-        this.modifiers = modifiers;
-        this.annotations = annotations;
-        this.product = product;
+    public MethodDef(List<Modifier> modifiers, List<AnnotationUsage> annotations, List<ParameterDef> parameters, TypeDef returnType, String name, JavaDoc docs, Scope scope) {
+        this.modifiers = Collections.unmodifiableList(modifiers);
+        this.annotations = Collections.unmodifiableList(annotations);
+        this.parameters = Collections.unmodifiableList(parameters);
+        this.returnType = returnType;
         this.name = name;
-        this.parameters = parameters;
         this.docs = docs;
+        this.scope = scope;
     }
 
     public List<Modifier> getModifiers() {
@@ -29,19 +32,23 @@ public final class MethodDef implements Def {
         return annotations;
     }
 
-    public TypeDef getProduct() {
-        return product;
+    public List<ParameterDef> getParameters() {
+        return parameters;
+    }
+
+    public TypeDef getReturnType() {
+        return returnType;
     }
 
     public String getName() {
         return name;
     }
 
-    public List<ParameterDef> getParameters() {
-        return parameters;
-    }
-
     public JavaDoc getDocs() {
         return docs;
+    }
+
+    public Scope getScope() {
+        return scope;
     }
 }
