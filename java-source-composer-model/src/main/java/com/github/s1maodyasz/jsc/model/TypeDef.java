@@ -63,18 +63,6 @@ public interface TypeDef {
     }
 
     /**
-     * This is a special type used to represent the "this" type.
-     */
-    final class This implements TypeDef {
-    }
-
-    /**
-     * This is a special type used to represent the "super" type.
-     */
-    final class Super implements TypeDef {
-    }
-
-    /**
      * This is a special type used to represent the "union" type for exceptions for example.
      */
     final class Union implements TypeDef {

@@ -3,13 +3,12 @@ package com.github.s1maodyasz.jsc.model;
 /**
  * Reference to a .class file in the classpath
  */
-public interface ClassRef {
+public interface ClassRef extends Ref {
 
     /**
      * This class is used to represent the reference to a class with {@link Class}
      */
     final class Type implements ClassRef {
-
         private final Class<?> type;
 
         public Type(Class<?> type) {
@@ -22,7 +21,6 @@ public interface ClassRef {
     }
 
     final class Name implements ClassRef {
-
         private final String className;
         private final String packageName;
 

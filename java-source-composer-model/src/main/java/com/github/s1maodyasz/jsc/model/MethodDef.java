@@ -8,13 +8,13 @@ public final class MethodDef implements Def {
 
     private final List<Modifier> modifiers;
     private final List<AnnotationUsage> annotations;
-    private final List<ParameterDef> parameters;
+    private final List<VariableDef> parameters;
     private final TypeDef returnType;
     private final String name;
     private final JavaDoc docs;
     private final Scope scope;
 
-    public MethodDef(List<Modifier> modifiers, List<AnnotationUsage> annotations, List<ParameterDef> parameters, TypeDef returnType, String name, JavaDoc docs, Scope scope) {
+    public MethodDef(List<Modifier> modifiers, List<AnnotationUsage> annotations, List<VariableDef> parameters, TypeDef returnType, String name, JavaDoc docs, Scope scope) {
         this.modifiers = Collections.unmodifiableList(modifiers);
         this.annotations = Collections.unmodifiableList(annotations);
         this.parameters = Collections.unmodifiableList(parameters);
@@ -32,7 +32,7 @@ public final class MethodDef implements Def {
         return annotations;
     }
 
-    public List<ParameterDef> getParameters() {
+    public List<VariableDef> getParameters() {
         return parameters;
     }
 

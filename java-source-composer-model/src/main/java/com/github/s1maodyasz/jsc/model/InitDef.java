@@ -25,9 +25,9 @@ public abstract class InitDef {
     static final class Constructor extends InitDef {
         final Modifier modifier;
         final List<AnnotationUsage> annotations;
-        final List<ParameterDef> parameters;
+        final List<VariableDef> parameters;
 
-        public Constructor(Scope scope, Modifier modifier, List<AnnotationUsage> annotations, List<ParameterDef> parameters) {
+        public Constructor(Scope scope, Modifier modifier, List<AnnotationUsage> annotations, List<VariableDef> parameters) {
             super(scope);
             this.modifier = modifier;
             this.annotations = Collections.unmodifiableList(annotations);
@@ -42,7 +42,7 @@ public abstract class InitDef {
             return annotations;
         }
 
-        public List<ParameterDef> getParameters() {
+        public List<VariableDef> getParameters() {
             return parameters;
         }
     }

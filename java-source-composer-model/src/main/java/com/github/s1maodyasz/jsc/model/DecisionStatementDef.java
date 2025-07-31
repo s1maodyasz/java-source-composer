@@ -1,5 +1,8 @@
 package com.github.s1maodyasz.jsc.model;
 
+/**
+ * Used in {@link StatementDef.IfElse} and {@link StatementDef.Switch} for representing decision statements
+ */
 public final class DecisionStatementDef implements Def {
 
     private final ExpressionDef condition;

@@ -115,14 +115,14 @@ public interface StatementDef extends ElementDef {
     final class IfElse implements StatementDef {
         private final ExpressionDef condition;
         private final Scope then;
-        private final List<DecisionStatementDef> specifics;
         private final Scope otherwise;
+        private final List<DecisionStatementDef> specifics;
 
-        public IfElse(ExpressionDef condition, Scope then, List<DecisionStatementDef> specifics, Scope otherwise) {
+        public IfElse(ExpressionDef condition, Scope then, Scope otherwise, List<DecisionStatementDef> specifics) {
             this.condition = condition;
             this.then = then;
-            this.specifics = Collections.unmodifiableList(specifics);
             this.otherwise = otherwise;
+            this.specifics = Collections.unmodifiableList(specifics);
         }
 
         public ExpressionDef getCondition() {
@@ -133,12 +133,12 @@ public interface StatementDef extends ElementDef {
             return then;
         }
 
-        public List<DecisionStatementDef> getSpecifics() {
-            return specifics;
-        }
-
         public Scope getOtherwise() {
             return otherwise;
+        }
+
+        public List<DecisionStatementDef> getSpecifics() {
+            return specifics;
         }
     }
 
