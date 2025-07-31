@@ -1,4 +1,4 @@
 package com.github.s1maodyasz.jsc.model.builder;
 
-public class ClassDefinitionBuilder {
+public interface Customizable {
 }
