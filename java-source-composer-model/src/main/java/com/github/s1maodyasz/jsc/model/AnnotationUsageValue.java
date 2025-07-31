@@ -1,11 +1,11 @@
 package com.github.s1maodyasz.jsc.model;
 
-public final class AnnotationValueDef {
+public final class AnnotationUsageValue {
 
 	private final String name;
 	private final Object value;
 
-	public AnnotationValueDef(String name, Object value) {
+	public AnnotationUsageValue(String name, Object value) {
 		this.name = name;
 		this.value = value;
 	}

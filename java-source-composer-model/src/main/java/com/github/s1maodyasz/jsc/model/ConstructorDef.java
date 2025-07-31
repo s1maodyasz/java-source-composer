@@ -8,14 +8,14 @@ public final class ConstructorDef implements Def {
 	private final List<Modifier> modifiers;
 	private final List<AnnotationUsage> annotations;
 	private final List<VariableDef> parameters;
-	private final JavaDoc docs;
+	private final JavaDocDef docs;
 	private final Scope scope;
 
 	public ConstructorDef(
 			List<Modifier> modifiers,
 			List<AnnotationUsage> annotations,
 			List<VariableDef> parameters,
-			JavaDoc docs,
+			JavaDocDef docs,
 			Scope scope) {
 		this.modifiers = modifiers;
 		this.annotations = annotations;
@@ -36,7 +36,7 @@ public final class ConstructorDef implements Def {
 		return parameters;
 	}
 
-	public JavaDoc getDocs() {
+	public JavaDocDef getDocs() {
 		return docs;
 	}
 

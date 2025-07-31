@@ -4,21 +4,21 @@ import java.util.Collections;
 import java.util.List;
 
 /** This class represents a usage of an annotation. */
-public abstract class AnnotationUsage {
+public class AnnotationUsage {
 
-	private final ClassRef reference;
-	private final List<AnnotationValueDef> values;
+	private final ClassName reference;
+	private final List<AnnotationUsageValue> values;
 
-	public AnnotationUsage(ClassRef reference, List<AnnotationValueDef> values) {
+	public AnnotationUsage(ClassName reference, List<AnnotationUsageValue> values) {
 		this.reference = reference;
 		this.values = Collections.unmodifiableList(values);
 	}
 
-	public ClassRef getReference() {
+	public ClassName getReference() {
 		return reference;
 	}
 
-	public List<AnnotationValueDef> getValues() {
+	public List<AnnotationUsageValue> getValues() {
 		return values;
 	}
 }

@@ -44,7 +44,7 @@ public abstract class VariableDef implements StatementDef {
 		return object;
 	}
 
-	static final class Simple extends VariableDef {
+	public static final class Simple extends VariableDef {
 		private final String name;
 
 		public Simple(
@@ -63,7 +63,7 @@ public abstract class VariableDef implements StatementDef {
 		}
 	}
 
-	static final class Multiple extends VariableDef {
+	public static final class Multiple extends VariableDef {
 		private final List<String> labels;
 
 		public Multiple(

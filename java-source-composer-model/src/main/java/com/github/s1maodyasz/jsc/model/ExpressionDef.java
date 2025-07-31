@@ -72,9 +72,9 @@ public interface ExpressionDef extends ElementDef {
 
 	final class InstanceOf implements ExpressionDef {
 		private final ExpressionDef expression;
-		private final ClassRef type;
+		private final ClassName type;
 
-		public InstanceOf(ExpressionDef expression, ClassRef type) {
+		public InstanceOf(ExpressionDef expression, ClassName type) {
 			this.expression = expression;
 			this.type = type;
 		}
@@ -83,21 +83,21 @@ public interface ExpressionDef extends ElementDef {
 			return expression;
 		}
 
-		public ClassRef getType() {
+		public ClassName getType() {
 			return type;
 		}
 	}
 
 	final class New implements ExpressionDef {
-		private final ClassRef type;
+		private final ClassName type;
 		private final List<ExpressionDef> arguments;
 
-		public New(ClassRef type, List<ExpressionDef> arguments) {
+		public New(ClassName type, List<ExpressionDef> arguments) {
 			this.type = type;
 			this.arguments = arguments;
 		}
 
-		public ClassRef getType() {
+		public ClassName getType() {
 			return type;
 		}
 
@@ -142,11 +142,11 @@ public interface ExpressionDef extends ElementDef {
 		return new Cast(expression, type);
 	}
 
-	static ExpressionDef InstanceOf(ExpressionDef expression, ClassRef type) {
+	static ExpressionDef InstanceOf(ExpressionDef expression, ClassName type) {
 		return new InstanceOf(expression, type);
 	}
 
-	static ExpressionDef New(ClassRef type, List<ExpressionDef> arguments) {
+	static ExpressionDef New(ClassName type, List<ExpressionDef> arguments) {
 		return new New(type, arguments);
 	}
 

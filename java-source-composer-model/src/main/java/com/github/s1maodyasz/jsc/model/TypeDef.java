@@ -6,26 +6,27 @@ import java.util.List;
 public interface TypeDef {
 
 	// Some special types and common references
-	ClassRef STRING = ClassRef.type(String.class);
-	ClassRef OBJECT = ClassRef.type(Object.class);
-	ClassRef VOID = ClassRef.type(void.class);
-	ClassRef NULL = ClassRef.type(null);
+	ClassName STRING = ClassName.type(String.class);
+	ClassName OBJECT = ClassName.type(Object.class);
+	ClassName VOID = ClassName.type(void.class);
+	ClassName NULL = ClassName.type(null);
 
 	final class Primitive implements TypeDef {
 		public static final Primitive BOOLEAN =
-				new Primitive(boolean.class, ClassRef.type(Boolean.class));
-		public static final Primitive BYTE = new Primitive(byte.class, ClassRef.type(Byte.class));
-		public static final Primitive SHORT = new Primitive(short.class, ClassRef.type(Short.class));
-		public static final Primitive INT = new Primitive(int.class, ClassRef.type(Integer.class));
-		public static final Primitive LONG = new Primitive(long.class, ClassRef.type(Long.class));
-		public static final Primitive FLOAT = new Primitive(float.class, ClassRef.type(Float.class));
-		public static final Primitive DOUBLE = new Primitive(double.class, ClassRef.type(Double.class));
-		public static final Primitive CHAR = new Primitive(char.class, ClassRef.type(Character.class));
+				new Primitive(boolean.class, ClassName.type(Boolean.class));
+		public static final Primitive BYTE = new Primitive(byte.class, ClassName.type(Byte.class));
+		public static final Primitive SHORT = new Primitive(short.class, ClassName.type(Short.class));
+		public static final Primitive INT = new Primitive(int.class, ClassName.type(Integer.class));
+		public static final Primitive LONG = new Primitive(long.class, ClassName.type(Long.class));
+		public static final Primitive FLOAT = new Primitive(float.class, ClassName.type(Float.class));
+		public static final Primitive DOUBLE =
+				new Primitive(double.class, ClassName.type(Double.class));
+		public static final Primitive CHAR = new Primitive(char.class, ClassName.type(Character.class));
 
 		final Class<?> originalType;
-		final ClassRef boxedType;
+		final ClassName boxedType;
 
-		public Primitive(Class<?> originalType, ClassRef boxedType) {
+		public Primitive(Class<?> originalType, ClassName boxedType) {
 			this.originalType = originalType;
 			this.boxedType = boxedType;
 		}
@@ -34,7 +35,7 @@ public interface TypeDef {
 			return originalType;
 		}
 
-		public ClassRef getBoxedType() {
+		public ClassName getBoxedType() {
 			return boxedType;
 		}
 	}
@@ -62,6 +63,14 @@ public interface TypeDef {
 			this.uppers = uppers;
 			this.lowers = lowers;
 		}
+
+		public List<TypeDef> getUppers() {
+			return uppers;
+		}
+
+		public List<TypeDef> getLowers() {
+			return lowers;
+		}
 	}
 
 	final class TypeVariable implements TypeDef {
@@ -76,6 +85,14 @@ public interface TypeDef {
 		public TypeVariable(String name, List<TypeDef> bounds) {
 			this.name = name;
 			this.bounds = bounds;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public List<TypeDef> getBounds() {
+			return bounds;
 		}
 	}
 
@@ -128,6 +145,12 @@ public interface TypeDef {
 			return types;
 		}
 	}
+
+	/** Special type used to represent the "this" type. */
+	final class This implements TypeDef {}
+
+	/** Special type used to represent the "super" type. */
+	final class Super implements TypeDef {}
 
 	default boolean isPrimitive() {
 		return this instanceof Primitive;

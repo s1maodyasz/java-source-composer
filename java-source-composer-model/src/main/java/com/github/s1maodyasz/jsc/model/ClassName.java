@@ -1,11 +1,10 @@
 package com.github.s1maodyasz.jsc.model;
 
-/** Reference to a .class file in the classpath */
-public interface ClassRef extends Ref {
+public interface ClassName extends TypeDef, Ref {
 
 	/** This class is used to represent the reference to a class with {@link Class} */
 	@FunctionalInterface
-	interface Type extends ClassRef {
+	interface Type extends ClassName {
 		Class<?> of();
 
 		static Type of(Class<?> type) {
@@ -13,7 +12,7 @@ public interface ClassRef extends Ref {
 		}
 	}
 
-	final class Name implements ClassRef {
+	final class Name implements ClassName {
 		private final String className;
 		private final String packageName;
 
@@ -31,11 +30,11 @@ public interface ClassRef extends Ref {
 		}
 	}
 
-	static ClassRef type(Class<?> type) {
+	static ClassName type(Class<?> type) {
 		return Type.of(type);
 	}
 
-	static ClassRef name(String className, String packageName) {
+	static ClassName name(String className, String packageName) {
 		return new Name(className, packageName);
 	}
 }

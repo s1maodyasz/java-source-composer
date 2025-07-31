@@ -3,8 +3,8 @@ plugins {
     alias(libs.plugins.spotless)
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "com.github.s1maodyasz"
+version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenCentral()

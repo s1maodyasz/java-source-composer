@@ -5,7 +5,7 @@ public interface VariableRef extends Ref {
 
 	String name();
 
-	static VariableRef name(String name) {
+	static VariableRef of(String name) {
 		return () -> name;
 	}
 }

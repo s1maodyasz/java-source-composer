@@ -11,7 +11,7 @@ public final class MethodDef implements Def {
 	private final List<VariableDef> parameters;
 	private final TypeDef returnType;
 	private final String name;
-	private final JavaDoc docs;
+	private final JavaDocDef docs;
 	private final Scope scope;
 
 	public MethodDef(
@@ -20,7 +20,7 @@ public final class MethodDef implements Def {
 			List<VariableDef> parameters,
 			TypeDef returnType,
 			String name,
-			JavaDoc docs,
+			JavaDocDef docs,
 			Scope scope) {
 		this.modifiers = Collections.unmodifiableList(modifiers);
 		this.annotations = Collections.unmodifiableList(annotations);
@@ -51,7 +51,7 @@ public final class MethodDef implements Def {
 		return name;
 	}
 
-	public JavaDoc getDocs() {
+	public JavaDocDef getDocs() {
 		return docs;
 	}
 

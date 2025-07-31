@@ -2,17 +2,17 @@ package com.github.s1maodyasz.jsc.model;
 
 import java.util.*;
 
-public final class JavaDoc {
+public final class JavaDocDef implements Def {
 
 	private final List<String> lines;
 	private final Map<JavaDocTag, String> tags;
 
-	public JavaDoc() {
+	public JavaDocDef() {
 		this.lines = new ArrayList<>();
 		this.tags = new LinkedHashMap<>();
 	}
 
-	public JavaDoc(final List<String> lines, final Map<JavaDocTag, String> tags) {
+	public JavaDocDef(final List<String> lines, final Map<JavaDocTag, String> tags) {
 		this.lines = Collections.unmodifiableList(lines);
 		this.tags = Collections.unmodifiableMap(tags);
 	}
