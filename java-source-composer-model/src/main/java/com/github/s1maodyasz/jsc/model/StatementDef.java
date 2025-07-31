@@ -5,240 +5,261 @@ import java.util.List;
 
 public interface StatementDef extends ElementDef {
 
-    final class Assignment implements StatementDef {
-        private final VariableDef left;
-        private final ExpressionDef right;
+	final class While implements StatementDef {
 
-        public Assignment(VariableDef left, ExpressionDef right) {
-            this.left = left;
-            this.right = right;
-        }
+		private final boolean doFirst;
+		private final ExpressionDef condition;
+		private final Scope scope;
 
-        public VariableDef getLeft() {
-            return left;
-        }
+		public While(boolean doFirst, ExpressionDef condition, Scope scope) {
+			this.doFirst = doFirst;
+			this.condition = condition;
+			this.scope = scope;
+		}
 
-        public ExpressionDef getRight() {
-            return right;
-        }
-    }
+		public boolean doFirst() {
+			return doFirst;
+		}
 
-    final class While implements StatementDef {
+		public ExpressionDef getCondition() {
+			return condition;
+		}
 
-        private final boolean doFirst;
-        private final ExpressionDef condition;
-        private final Scope scope;
+		public Scope getScope() {
+			return scope;
+		}
+	}
 
-        public While(boolean doFirst, ExpressionDef condition, Scope scope) {
-            this.doFirst = doFirst;
-            this.condition = condition;
-            this.scope = scope;
-        }
+	/** This probably should be changed if we want to support more recent versions of java */
+	final class Return implements StatementDef {
+		private final ExpressionDef expression;
 
-        public boolean doFirst() {
-            return doFirst;
-        }
+		public Return(ExpressionDef expression) {
+			this.expression = expression;
+		}
 
-        public ExpressionDef getCondition() {
-            return condition;
-        }
+		public ExpressionDef getExpression() {
+			return expression;
+		}
+	}
 
-        public Scope getScope() {
-            return scope;
-        }
-    }
+	final class Throw implements StatementDef {
+		private final ExpressionDef exception;
 
-    /**
-     * This probably should be changed if we want to support more recent versions of java
-     */
-    final class Return implements StatementDef {
-        private final ExpressionDef expression;
+		public Throw(ExpressionDef exception) {
+			this.exception = exception;
+		}
 
-        public Return(ExpressionDef expression) {
-            this.expression = expression;
-        }
+		public ExpressionDef getException() {
+			return exception;
+		}
+	}
 
-        public ExpressionDef getExpression() {
-            return expression;
-        }
-    }
+	class Try implements StatementDef {
+		private final Scope tryScope;
+		private final Scope catchScope;
+		private final Scope finallyScope;
 
-    final class Throw implements StatementDef {
-        private final ExpressionDef exception;
+		public Try(Scope tryScope, Scope catchScope, Scope finallyScope) {
+			this.tryScope = tryScope;
+			this.catchScope = catchScope;
+			this.finallyScope = finallyScope;
+		}
 
-        public Throw(ExpressionDef exception) {
-            this.exception = exception;
-        }
+		public Scope getTryScope() {
+			return tryScope;
+		}
 
-        public ExpressionDef getException() {
-            return exception;
-        }
-    }
+		public Scope getCatchScope() {
+			return catchScope;
+		}
 
-    class Try implements StatementDef {
-        private final Scope tryScope;
-        private final Scope catchScope;
-        private final Scope finallyScope;
+		public Scope getFinallyScope() {
+			return finallyScope;
+		}
+	}
 
-        public Try(Scope tryScope, Scope catchScope, Scope finallyScope) {
-            this.tryScope = tryScope;
-            this.catchScope = catchScope;
-            this.finallyScope = finallyScope;
-        }
+	final class TryWithResources extends Try {
+		private final ExpressionDef resources;
 
-        public Scope getTryScope() {
-            return tryScope;
-        }
+		public TryWithResources(
+				Scope tryScope, Scope catchScope, Scope finallyScope, ExpressionDef resources) {
+			super(tryScope, catchScope, finallyScope);
+			this.resources = resources;
+		}
 
-        public Scope getCatchScope() {
-            return catchScope;
-        }
+		public ExpressionDef getResources() {
+			return resources;
+		}
+	}
 
-        public Scope getFinallyScope() {
-            return finallyScope;
-        }
-    }
+	final class IfElse implements StatementDef {
+		private final ExpressionDef condition;
+		private final Scope then;
+		private final Scope otherwise;
+		private final List<DecisionStatementDef> specifics;
 
-    final class TryWithResources extends Try {
-        private final ExpressionDef resources;
+		public IfElse(
+				ExpressionDef condition,
+				Scope then,
+				Scope otherwise,
+				List<DecisionStatementDef> specifics) {
+			this.condition = condition;
+			this.then = then;
+			this.otherwise = otherwise;
+			this.specifics = Collections.unmodifiableList(specifics);
+		}
 
-        public TryWithResources(Scope tryScope, Scope catchScope, Scope finallyScope, ExpressionDef resources) {
-            super(tryScope, catchScope, finallyScope);
-            this.resources = resources;
-        }
+		public ExpressionDef getCondition() {
+			return condition;
+		}
 
-        public ExpressionDef getResources() {
-            return resources;
-        }
-    }
+		public Scope getThen() {
+			return then;
+		}
 
-    final class IfElse implements StatementDef {
-        private final ExpressionDef condition;
-        private final Scope then;
-        private final Scope otherwise;
-        private final List<DecisionStatementDef> specifics;
+		public Scope getOtherwise() {
+			return otherwise;
+		}
 
-        public IfElse(ExpressionDef condition, Scope then, Scope otherwise, List<DecisionStatementDef> specifics) {
-            this.condition = condition;
-            this.then = then;
-            this.otherwise = otherwise;
-            this.specifics = Collections.unmodifiableList(specifics);
-        }
+		public List<DecisionStatementDef> getSpecifics() {
+			return specifics;
+		}
+	}
 
-        public ExpressionDef getCondition() {
-            return condition;
-        }
+	final class Switch implements StatementDef {
+		private final ExpressionDef condition;
+		private final List<DecisionStatementDef> cases;
+		private final Scope standard;
 
-        public Scope getThen() {
-            return then;
-        }
+		public Switch(ExpressionDef condition, List<DecisionStatementDef> cases, Scope standard) {
+			this.condition = condition;
+			this.cases = cases;
+			this.standard = standard;
+		}
 
-        public Scope getOtherwise() {
-            return otherwise;
-        }
+		public ExpressionDef getCondition() {
+			return condition;
+		}
 
-        public List<DecisionStatementDef> getSpecifics() {
-            return specifics;
-        }
-    }
+		public List<DecisionStatementDef> getCases() {
+			return cases;
+		}
 
-    final class Switch implements StatementDef {
-        private final ExpressionDef condition;
-        private final List<DecisionStatementDef> cases;
-        private final Scope standard;
+		public Scope getStandard() {
+			return standard;
+		}
+	}
 
-        public Switch(ExpressionDef condition, List<DecisionStatementDef> cases, Scope standard) {
-            this.condition = condition;
-            this.cases = cases;
-            this.standard = standard;
-        }
+	final class For implements StatementDef {
+		private final ExpressionDef init;
+		private final ExpressionDef condition;
+		private final ExpressionDef update;
+		private final Scope scope;
 
-        public ExpressionDef getCondition() {
-            return condition;
-        }
+		public For(ExpressionDef init, ExpressionDef condition, ExpressionDef update, Scope scope) {
+			this.init = init;
+			this.condition = condition;
+			this.update = update;
+			this.scope = scope;
+		}
 
-        public List<DecisionStatementDef> getCases() {
-            return cases;
-        }
+		public ExpressionDef getInit() {
+			return init;
+		}
 
-        public Scope getStandard() {
-            return standard;
-        }
-    }
+		public ExpressionDef getCondition() {
+			return condition;
+		}
 
-    final class For implements StatementDef {
-        private final ExpressionDef init;
-        private final ExpressionDef condition;
-        private final ExpressionDef update;
-        private final Scope scope;
+		public ExpressionDef getUpdate() {
+			return update;
+		}
 
-        public For(ExpressionDef init, ExpressionDef condition, ExpressionDef update, Scope scope) {
-            this.init = init;
-            this.condition = condition;
-            this.update = update;
-            this.scope = scope;
-        }
+		public Scope getScope() {
+			return scope;
+		}
+	}
 
-        public ExpressionDef getInit() {
-            return init;
-        }
+	final class ForEach implements StatementDef {
+		private final VariableDef variable;
+		private final ExpressionDef expression;
+		private final Scope scope;
 
-        public ExpressionDef getCondition() {
-            return condition;
-        }
+		public ForEach(VariableDef variable, ExpressionDef expression, Scope scope) {
+			this.variable = variable;
+			this.expression = expression;
+			this.scope = scope;
+		}
 
-        public ExpressionDef getUpdate() {
-            return update;
-        }
+		public VariableDef getVariable() {
+			return variable;
+		}
 
-        public Scope getScope() {
-            return scope;
-        }
-    }
+		public ExpressionDef getExpression() {
+			return expression;
+		}
 
-    final class ForEach implements StatementDef {
-        private final VariableDef variable;
-        private final ExpressionDef expression;
-        private final Scope scope;
+		public Scope getScope() {
+			return scope;
+		}
+	}
 
-        public ForEach(VariableDef variable, ExpressionDef expression, Scope scope) {
-            this.variable = variable;
-            this.expression = expression;
-            this.scope = scope;
-        }
+	final class Break implements StatementDef {}
 
-        public VariableDef getVariable() {
-            return variable;
-        }
+	final class Continue implements StatementDef {}
 
-        public ExpressionDef getExpression() {
-            return expression;
-        }
+	final class Synchronized implements StatementDef {
+		private final ExpressionDef lock;
+		private final Scope scope;
 
-        public Scope getScope() {
-            return scope;
-        }
-    }
+		public Synchronized(ExpressionDef lock, Scope scope) {
+			this.lock = lock;
+			this.scope = scope;
+		}
 
-    final class Break implements StatementDef { }
+		public ExpressionDef getLock() {
+			return lock;
+		}
 
-    final class Continue implements StatementDef { }
+		public Scope getScope() {
+			return scope;
+		}
+	}
 
-    final class Synchronized implements StatementDef {
-        private final ExpressionDef lock;
-        private final Scope scope;
+	final class Increment implements ExpressionDef {
+		private final VariableDef variable;
+		private final boolean postfix;
 
-        public Synchronized(ExpressionDef lock, Scope scope) {
-            this.lock = lock;
-            this.scope = scope;
-        }
+		public Increment(VariableDef variable, boolean postfix) {
+			this.variable = variable;
+			this.postfix = postfix;
+		}
 
-        public ExpressionDef getLock() {
-            return lock;
-        }
+		public VariableDef getVariable() {
+			return variable;
+		}
 
-        public Scope getScope() {
-            return scope;
-        }
-    }
+		public boolean isPostfix() {
+			return postfix;
+		}
+	}
+
+	final class Decrement implements ExpressionDef {
+		private final VariableDef variable;
+		private final boolean postfix;
+
+		public Decrement(VariableDef variable, boolean postfix) {
+			this.variable = variable;
+			this.postfix = postfix;
+		}
+
+		public VariableDef getVariable() {
+			return variable;
+		}
+
+		public boolean isPostfix() {
+			return postfix;
+		}
+	}
 }

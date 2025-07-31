@@ -1,61 +1,84 @@
 package com.github.s1maodyasz.jsc.model;
 
-import javax.lang.model.element.Modifier;
 import java.util.List;
+import javax.lang.model.element.Modifier;
 
 public abstract class VariableDef implements StatementDef {
 
-    private final List<Modifier> modifiers;
-    private final List<AnnotationUsage> annotations;
-    private final TypeDef type;
-    private final VariableDeclarationScope scope;
+	private final List<Modifier> modifiers;
+	private final List<AnnotationUsage> annotations;
+	private final TypeDef type;
+	private final VariableDeclarationScope scope;
+	private final Object object; // Can be null
 
-    public VariableDef(List<Modifier> modifiers, List<AnnotationUsage> annotations, TypeDef type, VariableDeclarationScope scope) {
-        this.modifiers = modifiers;
-        this.annotations = annotations;
-        this.type = type;
-        this.scope = scope;
-    }
+	public VariableDef(
+			List<Modifier> modifiers,
+			List<AnnotationUsage> annotations,
+			TypeDef type,
+			VariableDeclarationScope scope,
+			Object object) {
+		this.modifiers = modifiers;
+		this.annotations = annotations;
+		this.type = type;
+		this.scope = scope;
+		this.object = object;
+	}
 
-    public List<Modifier> getModifiers() {
-        return modifiers;
-    }
+	public List<Modifier> getModifiers() {
+		return modifiers;
+	}
 
-    public List<AnnotationUsage> getAnnotations() {
-        return annotations;
-    }
+	public List<AnnotationUsage> getAnnotations() {
+		return annotations;
+	}
 
-    public TypeDef getType() {
-        return type;
-    }
+	public TypeDef getType() {
+		return type;
+	}
 
-    public VariableDeclarationScope getScope() {
-        return scope;
-    }
+	public VariableDeclarationScope getScope() {
+		return scope;
+	}
 
-    static final class Simple extends VariableDef {
-        private final String name;
+	public Object getObject() {
+		return object;
+	}
 
-        public Simple(List<Modifier> modifiers, List<AnnotationUsage> annotations, TypeDef type, VariableDeclarationScope scope, String name) {
-            super(modifiers, annotations, type, scope);
-            this.name = name;
-        }
+	static final class Simple extends VariableDef {
+		private final String name;
 
-        public String getName() {
-            return name;
-        }
-    }
+		public Simple(
+				List<Modifier> modifiers,
+				List<AnnotationUsage> annotations,
+				TypeDef type,
+				VariableDeclarationScope scope,
+				Object object,
+				String name) {
+			super(modifiers, annotations, type, scope, object);
+			this.name = name;
+		}
 
-    static final class Multiple extends VariableDef {
-        private final List<String> labels;
+		public String getName() {
+			return name;
+		}
+	}
 
-        public Multiple(List<Modifier> modifiers, List<AnnotationUsage> annotations, TypeDef type, VariableDeclarationScope scope, List<String> labels) {
-            super(modifiers, annotations, type, scope);
-            this.labels = labels;
-        }
+	static final class Multiple extends VariableDef {
+		private final List<String> labels;
 
-        public List<String> getLabels() {
-            return labels;
-        }
-    }
+		public Multiple(
+				List<Modifier> modifiers,
+				List<AnnotationUsage> annotations,
+				TypeDef type,
+				VariableDeclarationScope scope,
+				Object object,
+				List<String> labels) {
+			super(modifiers, annotations, type, scope, object);
+			this.labels = labels;
+		}
+
+		public List<String> getLabels() {
+			return labels;
+		}
+	}
 }

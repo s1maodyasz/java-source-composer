@@ -1,4 +1,3 @@
 package com.github.s1maodyasz.jsc.model;
 
-public interface Ref {
-}
+public interface Ref {}

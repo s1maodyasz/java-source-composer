@@ -6,43 +6,43 @@ import java.util.List;
 // This is a scope of a statement or statement block
 public interface Scope extends ElementDef {
 
-    final class Inline implements Scope {
-        private final ElementDef element;
+	final class Inline implements Scope {
+		private final ElementDef element;
 
-        public Inline(ElementDef element) {
-            this.element = element;
-        }
+		public Inline(ElementDef element) {
+			this.element = element;
+		}
 
-        public ElementDef getElement() {
-            return element;
-        }
-    }
+		public ElementDef getElement() {
+			return element;
+		}
+	}
 
-    final class Block implements Scope {
-        private final List<ElementDef> elements;
+	final class Block implements Scope {
+		private final List<ElementDef> elements;
 
-        public Block() {
-            this.elements = new LinkedList<>();
-        }
+		public Block() {
+			this.elements = new LinkedList<>();
+		}
 
-        public Block(List<ElementDef> elements) {
-            this.elements = elements;
-        }
+		public Block(List<ElementDef> elements) {
+			this.elements = elements;
+		}
 
-        public List<ElementDef> getElements() {
-            return elements;
-        }
-    }
+		public List<ElementDef> getElements() {
+			return elements;
+		}
+	}
 
-    static Scope inline(ElementDef element) {
-        return new Inline(element);
-    }
+	static Scope inline(ElementDef element) {
+		return new Inline(element);
+	}
 
-    static Scope block() {
-        return new Block();
-    }
+	static Scope block() {
+		return new Block();
+	}
 
-    static Scope block(List<ElementDef> elements) {
-        return new Block(elements);
-    }
+	static Scope block(List<ElementDef> elements) {
+		return new Block(elements);
+	}
 }
