@@ -16,18 +16,6 @@ public interface ExpressionDef extends ElementDef {
 		}
 	}
 
-	final class Variable implements ExpressionDef {
-		private final VariableRef object;
-
-		public Variable(VariableRef object) {
-			this.object = object;
-		}
-
-		public VariableRef getVariable() {
-			return object;
-		}
-	}
-
 	final class Ternary implements ExpressionDef {
 		private final ExpressionDef condition;
 		private final ExpressionDef then;
@@ -118,43 +106,15 @@ public interface ExpressionDef extends ElementDef {
 		}
 	}
 
-	final class IsNonNull implements ExpressionDef {
+	final class isNotNull implements ExpressionDef {
 		private final ExpressionDef expression;
 
-		public IsNonNull(ExpressionDef expression) {
+		public isNotNull(ExpressionDef expression) {
 			this.expression = expression;
 		}
 
 		public ExpressionDef getExpression() {
 			return expression;
 		}
-	}
-
-	static ExpressionDef Literal(Object object) {
-		return new Literal(object);
-	}
-
-	static ExpressionDef Variable(VariableRef variableRef) {
-		return new Variable(variableRef);
-	}
-
-	static ExpressionDef Cast(ExpressionDef expression, TypeDef type) {
-		return new Cast(expression, type);
-	}
-
-	static ExpressionDef InstanceOf(ExpressionDef expression, ClassName type) {
-		return new InstanceOf(expression, type);
-	}
-
-	static ExpressionDef New(ClassName type, List<ExpressionDef> arguments) {
-		return new New(type, arguments);
-	}
-
-	static ExpressionDef IsNullable(ExpressionDef expression) {
-		return new IsNullable(expression);
-	}
-
-	static ExpressionDef IsNonNull(ExpressionDef expression) {
-		return new IsNonNull(expression);
 	}
 }

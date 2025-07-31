@@ -1,8 +1,7 @@
-package com.github.s1maodyasz.jsc.model.builder.customizer;
+package com.github.s1maodyasz.jsc.model.builder;
 
 @FunctionalInterface
-public interface Customizer<T, B> {
+public interface Customizer<T extends Customizable> {
 
-    T customize(B builder);
-
+	void customize(T customizable);
 }

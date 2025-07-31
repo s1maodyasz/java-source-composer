@@ -2,6 +2,7 @@ package com.github.s1maodyasz.jsc.model;
 
 import java.util.Collections;
 import java.util.List;
+import javax.lang.model.element.Modifier;
 
 public interface StatementDef extends ElementDef {
 
@@ -181,18 +182,59 @@ public interface StatementDef extends ElementDef {
 		}
 	}
 
+	final class Variable implements StatementDef {
+		private final String name;
+		private final List<Modifier> modifiers;
+		private final List<AnnotationUsage> annotations;
+		private final TypeDef type;
+		private final Object object;
+
+		public Variable(
+				String name,
+				List<Modifier> modifiers,
+				List<AnnotationUsage> annotations,
+				TypeDef type,
+				Object object) {
+			this.name = name;
+			this.modifiers = modifiers;
+			this.annotations = annotations;
+			this.type = type;
+			this.object = object;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public List<Modifier> getModifiers() {
+			return modifiers;
+		}
+
+		public List<AnnotationUsage> getAnnotations() {
+			return annotations;
+		}
+
+		public TypeDef getType() {
+			return type;
+		}
+
+		public Object getObject() {
+			return object;
+		}
+	}
+
 	final class ForEach implements StatementDef {
-		private final VariableDef variable;
+		private final Variable variable;
 		private final ExpressionDef expression;
 		private final Scope scope;
 
-		public ForEach(VariableDef variable, ExpressionDef expression, Scope scope) {
+		public ForEach(Variable variable, ExpressionDef expression, Scope scope) {
 			this.variable = variable;
 			this.expression = expression;
 			this.scope = scope;
 		}
 
-		public VariableDef getVariable() {
+		public Variable getVariable() {
 			return variable;
 		}
 
@@ -228,15 +270,15 @@ public interface StatementDef extends ElementDef {
 	}
 
 	final class Increment implements ExpressionDef {
-		private final VariableDef variable;
+		private final StatementDef.Variable variable;
 		private final boolean postfix;
 
-		public Increment(VariableDef variable, boolean postfix) {
+		public Increment(StatementDef.Variable variable, boolean postfix) {
 			this.variable = variable;
 			this.postfix = postfix;
 		}
 
-		public VariableDef getVariable() {
+		public StatementDef.Variable getVariable() {
 			return variable;
 		}
 
@@ -246,15 +288,15 @@ public interface StatementDef extends ElementDef {
 	}
 
 	final class Decrement implements ExpressionDef {
-		private final VariableDef variable;
+		private final Variable variable;
 		private final boolean postfix;
 
-		public Decrement(VariableDef variable, boolean postfix) {
+		public Decrement(Variable variable, boolean postfix) {
 			this.variable = variable;
 			this.postfix = postfix;
 		}
 
-		public VariableDef getVariable() {
+		public StatementDef.Variable getVariable() {
 			return variable;
 		}
 

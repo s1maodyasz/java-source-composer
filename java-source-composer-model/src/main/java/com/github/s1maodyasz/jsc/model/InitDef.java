@@ -1,7 +1,6 @@
 package com.github.s1maodyasz.jsc.model;
 
 import java.lang.reflect.Modifier;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class InitDef {
@@ -16,26 +15,27 @@ public abstract class InitDef {
 		return scope;
 	}
 
-	static final class Static extends InitDef {
+	// Static initializer
+	public static final class Static extends InitDef {
 		public Static(Scope scope) {
 			super(scope);
 		}
 	}
 
-	static final class Constructor extends InitDef {
-		final Modifier modifier;
-		final List<AnnotationUsage> annotations;
-		final List<VariableDef> parameters;
+	public static final class Constructor extends InitDef {
+		private final Modifier modifier;
+		private final List<AnnotationUsage> annotations;
+		private final List<StatementDef.Variable> parameters;
 
 		public Constructor(
 				Scope scope,
 				Modifier modifier,
 				List<AnnotationUsage> annotations,
-				List<VariableDef> parameters) {
+				List<StatementDef.Variable> parameters) {
 			super(scope);
 			this.modifier = modifier;
-			this.annotations = Collections.unmodifiableList(annotations);
-			this.parameters = Collections.unmodifiableList(parameters);
+			this.annotations = annotations;
+			this.parameters = parameters;
 		}
 
 		public Modifier getModifier() {
@@ -46,7 +46,7 @@ public abstract class InitDef {
 			return annotations;
 		}
 
-		public List<VariableDef> getParameters() {
+		public List<StatementDef.Variable> getParameters() {
 			return parameters;
 		}
 	}

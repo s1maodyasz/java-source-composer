@@ -1,24 +1,23 @@
 package com.github.s1maodyasz.jsc.model;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Map;
 
 /** This class represents a usage of an annotation. */
-public class AnnotationUsage {
+public final class AnnotationUsage {
 
-	private final ClassName reference;
-	private final List<AnnotationUsageValue> values;
+	private final ClassName className;
+	private final Map<String, Object> values;
 
-	public AnnotationUsage(ClassName reference, List<AnnotationUsageValue> values) {
-		this.reference = reference;
-		this.values = Collections.unmodifiableList(values);
+	public AnnotationUsage(ClassName className, Map<String, Object> values) {
+		this.className = className;
+		this.values = values;
 	}
 
-	public ClassName getReference() {
-		return reference;
+	public ClassName getClassName() {
+		return className;
 	}
 
-	public List<AnnotationUsageValue> getValues() {
+	public Map<String, Object> getValues() {
 		return values;
 	}
 }

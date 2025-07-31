@@ -1,6 +1,6 @@
 package com.github.s1maodyasz.jsc.model;
 
-public interface ClassName extends TypeDef, Ref {
+public interface ClassName extends TypeDef {
 
 	/** This class is used to represent the reference to a class with {@link Class} */
 	@FunctionalInterface
@@ -12,6 +12,7 @@ public interface ClassName extends TypeDef, Ref {
 		}
 	}
 
+	/** This class is used to represent the reference to a class with name and package */
 	final class Name implements ClassName {
 		private final String className;
 		private final String packageName;

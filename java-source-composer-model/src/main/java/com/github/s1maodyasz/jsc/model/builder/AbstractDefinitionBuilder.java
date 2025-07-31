@@ -1,9 +1,8 @@
 package com.github.s1maodyasz.jsc.model.builder;
 
-import com.github.s1maodyasz.jsc.model.ElementDef;
+import com.github.s1maodyasz.jsc.model.Def;
 
-public abstract class AbstractElementDefBuilder<T extends ElementDef> {
+public abstract class AbstractDefinitionBuilder<T extends Def> {
 
-    public abstract T build();
-
+	public abstract T build();
 }
