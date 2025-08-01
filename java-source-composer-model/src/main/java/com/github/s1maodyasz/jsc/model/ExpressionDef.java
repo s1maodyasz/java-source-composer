@@ -11,7 +11,7 @@ public interface ExpressionDef extends ElementDef {
 			this.object = object;
 		}
 
-		public Object getValue() {
+		public Object object() {
 			return object;
 		}
 	}
@@ -27,15 +27,15 @@ public interface ExpressionDef extends ElementDef {
 			this.otherwise = otherwise;
 		}
 
-		public ExpressionDef getCondition() {
+		public ExpressionDef condition() {
 			return condition;
 		}
 
-		public ExpressionDef getThen() {
+		public ExpressionDef then() {
 			return then;
 		}
 
-		public ExpressionDef getOtherwise() {
+		public ExpressionDef otherwise() {
 			return otherwise;
 		}
 	}
@@ -49,11 +49,11 @@ public interface ExpressionDef extends ElementDef {
 			this.type = type;
 		}
 
-		public ExpressionDef getExpression() {
+		public ExpressionDef expression() {
 			return expression;
 		}
 
-		public TypeDef getType() {
+		public TypeDef type() {
 			return type;
 		}
 	}
@@ -67,11 +67,11 @@ public interface ExpressionDef extends ElementDef {
 			this.type = type;
 		}
 
-		public ExpressionDef getExpression() {
+		public ExpressionDef expression() {
 			return expression;
 		}
 
-		public ClassName getType() {
+		public ClassName type() {
 			return type;
 		}
 	}
@@ -85,11 +85,11 @@ public interface ExpressionDef extends ElementDef {
 			this.arguments = arguments;
 		}
 
-		public ClassName getType() {
+		public ClassName type() {
 			return type;
 		}
 
-		public List<ExpressionDef> getArguments() {
+		public List<ExpressionDef> arguments() {
 			return arguments;
 		}
 	}
@@ -101,7 +101,7 @@ public interface ExpressionDef extends ElementDef {
 			this.expression = expression;
 		}
 
-		public ExpressionDef getExpression() {
+		public ExpressionDef expression() {
 			return expression;
 		}
 	}
@@ -113,7 +113,7 @@ public interface ExpressionDef extends ElementDef {
 			this.expression = expression;
 		}
 
-		public ExpressionDef getExpression() {
+		public ExpressionDef expression() {
 			return expression;
 		}
 	}

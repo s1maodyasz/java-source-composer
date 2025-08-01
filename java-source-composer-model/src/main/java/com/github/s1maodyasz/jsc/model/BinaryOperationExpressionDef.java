@@ -10,11 +10,11 @@ public abstract class BinaryOperationExpressionDef implements ExpressionDef {
 		this.right = right;
 	}
 
-	public ExpressionDef getLeft() {
+	public ExpressionDef left() {
 		return left;
 	}
 
-	public ExpressionDef getRight() {
+	public ExpressionDef right() {
 		return right;
 	}
 

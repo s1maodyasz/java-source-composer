@@ -7,18 +7,18 @@ package com.github.s1maodyasz.jsc.model;
 public final class DecisionStatementDef implements Def {
 
 	private final ExpressionDef condition;
-	private final Scope scope;
+	private final CodeBlock codeBlock;
 
-	public DecisionStatementDef(ExpressionDef condition, Scope scope) {
+	public DecisionStatementDef(ExpressionDef condition, CodeBlock codeBlock) {
 		this.condition = condition;
-		this.scope = scope;
+		this.codeBlock = codeBlock;
 	}
 
-	public ExpressionDef getCondition() {
+	public ExpressionDef condition() {
 		return condition;
 	}
 
-	public Scope getScope() {
-		return scope;
+	public CodeBlock scope() {
+		return codeBlock;
 	}
 }

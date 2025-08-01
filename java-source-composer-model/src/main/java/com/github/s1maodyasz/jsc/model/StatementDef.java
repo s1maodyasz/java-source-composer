@@ -2,7 +2,6 @@ package com.github.s1maodyasz.jsc.model;
 
 import java.util.Collections;
 import java.util.List;
-import javax.lang.model.element.Modifier;
 
 public interface StatementDef extends ElementDef {
 
@@ -10,24 +9,24 @@ public interface StatementDef extends ElementDef {
 
 		private final boolean doFirst;
 		private final ExpressionDef condition;
-		private final Scope scope;
+		private final CodeBlock codeBlock;
 
-		public While(boolean doFirst, ExpressionDef condition, Scope scope) {
+		public While(boolean doFirst, ExpressionDef condition, CodeBlock codeBlock) {
 			this.doFirst = doFirst;
 			this.condition = condition;
-			this.scope = scope;
+			this.codeBlock = codeBlock;
 		}
 
 		public boolean doFirst() {
 			return doFirst;
 		}
 
-		public ExpressionDef getCondition() {
+		public ExpressionDef condition() {
 			return condition;
 		}
 
-		public Scope getScope() {
-			return scope;
+		public CodeBlock codeBlock() {
+			return codeBlock;
 		}
 	}
 
@@ -39,7 +38,7 @@ public interface StatementDef extends ElementDef {
 			this.expression = expression;
 		}
 
-		public ExpressionDef getExpression() {
+		public ExpressionDef expression() {
 			return expression;
 		}
 	}
@@ -51,32 +50,32 @@ public interface StatementDef extends ElementDef {
 			this.exception = exception;
 		}
 
-		public ExpressionDef getException() {
+		public ExpressionDef exception() {
 			return exception;
 		}
 	}
 
 	class Try implements StatementDef {
-		private final Scope tryScope;
-		private final Scope catchScope;
-		private final Scope finallyScope;
+		private final CodeBlock tryCodeBlock;
+		private final CodeBlock catchCodeBlock;
+		private final CodeBlock finallyCodeBlock;
 
-		public Try(Scope tryScope, Scope catchScope, Scope finallyScope) {
-			this.tryScope = tryScope;
-			this.catchScope = catchScope;
-			this.finallyScope = finallyScope;
+		public Try(CodeBlock tryCodeBlock, CodeBlock catchCodeBlock, CodeBlock finallyCodeBlock) {
+			this.tryCodeBlock = tryCodeBlock;
+			this.catchCodeBlock = catchCodeBlock;
+			this.finallyCodeBlock = finallyCodeBlock;
 		}
 
-		public Scope getTryScope() {
-			return tryScope;
+		public CodeBlock tryCodeBlock() {
+			return tryCodeBlock;
 		}
 
-		public Scope getCatchScope() {
-			return catchScope;
+		public CodeBlock catchCodeBlock() {
+			return catchCodeBlock;
 		}
 
-		public Scope getFinallyScope() {
-			return finallyScope;
+		public CodeBlock finallyCodeBlock() {
+			return finallyCodeBlock;
 		}
 	}
 
@@ -84,26 +83,29 @@ public interface StatementDef extends ElementDef {
 		private final ExpressionDef resources;
 
 		public TryWithResources(
-				Scope tryScope, Scope catchScope, Scope finallyScope, ExpressionDef resources) {
-			super(tryScope, catchScope, finallyScope);
+				CodeBlock tryCodeBlock,
+				CodeBlock catchCodeBlock,
+				CodeBlock finallyCodeBlock,
+				ExpressionDef resources) {
+			super(tryCodeBlock, catchCodeBlock, finallyCodeBlock);
 			this.resources = resources;
 		}
 
-		public ExpressionDef getResources() {
+		public ExpressionDef resources() {
 			return resources;
 		}
 	}
 
 	final class IfElse implements StatementDef {
 		private final ExpressionDef condition;
-		private final Scope then;
-		private final Scope otherwise;
+		private final CodeBlock then;
+		private final CodeBlock otherwise;
 		private final List<DecisionStatementDef> specifics;
 
 		public IfElse(
 				ExpressionDef condition,
-				Scope then,
-				Scope otherwise,
+				CodeBlock then,
+				CodeBlock otherwise,
 				List<DecisionStatementDef> specifics) {
 			this.condition = condition;
 			this.then = then;
@@ -111,19 +113,19 @@ public interface StatementDef extends ElementDef {
 			this.specifics = Collections.unmodifiableList(specifics);
 		}
 
-		public ExpressionDef getCondition() {
+		public ExpressionDef condition() {
 			return condition;
 		}
 
-		public Scope getThen() {
+		public CodeBlock then() {
 			return then;
 		}
 
-		public Scope getOtherwise() {
+		public CodeBlock otherwise() {
 			return otherwise;
 		}
 
-		public List<DecisionStatementDef> getSpecifics() {
+		public List<DecisionStatementDef> specifics() {
 			return specifics;
 		}
 	}
@@ -131,23 +133,23 @@ public interface StatementDef extends ElementDef {
 	final class Switch implements StatementDef {
 		private final ExpressionDef condition;
 		private final List<DecisionStatementDef> cases;
-		private final Scope standard;
+		private final CodeBlock standard;
 
-		public Switch(ExpressionDef condition, List<DecisionStatementDef> cases, Scope standard) {
+		public Switch(ExpressionDef condition, List<DecisionStatementDef> cases, CodeBlock standard) {
 			this.condition = condition;
 			this.cases = cases;
 			this.standard = standard;
 		}
 
-		public ExpressionDef getCondition() {
+		public ExpressionDef condition() {
 			return condition;
 		}
 
-		public List<DecisionStatementDef> getCases() {
+		public List<DecisionStatementDef> cases() {
 			return cases;
 		}
 
-		public Scope getStandard() {
+		public CodeBlock standard() {
 			return standard;
 		}
 	}
@@ -156,94 +158,54 @@ public interface StatementDef extends ElementDef {
 		private final ExpressionDef init;
 		private final ExpressionDef condition;
 		private final ExpressionDef update;
-		private final Scope scope;
+		private final CodeBlock codeBlock;
 
-		public For(ExpressionDef init, ExpressionDef condition, ExpressionDef update, Scope scope) {
+		public For(
+				ExpressionDef init, ExpressionDef condition, ExpressionDef update, CodeBlock codeBlock) {
 			this.init = init;
 			this.condition = condition;
 			this.update = update;
-			this.scope = scope;
+			this.codeBlock = codeBlock;
 		}
 
-		public ExpressionDef getInit() {
+		public ExpressionDef init() {
 			return init;
 		}
 
-		public ExpressionDef getCondition() {
+		public ExpressionDef condition() {
 			return condition;
 		}
 
-		public ExpressionDef getUpdate() {
+		public ExpressionDef update() {
 			return update;
 		}
 
-		public Scope getScope() {
-			return scope;
-		}
-	}
-
-	final class Variable implements StatementDef {
-		private final String name;
-		private final List<Modifier> modifiers;
-		private final List<AnnotationUsage> annotations;
-		private final TypeDef type;
-		private final Object object;
-
-		public Variable(
-				String name,
-				List<Modifier> modifiers,
-				List<AnnotationUsage> annotations,
-				TypeDef type,
-				Object object) {
-			this.name = name;
-			this.modifiers = modifiers;
-			this.annotations = annotations;
-			this.type = type;
-			this.object = object;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public List<Modifier> getModifiers() {
-			return modifiers;
-		}
-
-		public List<AnnotationUsage> getAnnotations() {
-			return annotations;
-		}
-
-		public TypeDef getType() {
-			return type;
-		}
-
-		public Object getObject() {
-			return object;
+		public CodeBlock codeBlock() {
+			return codeBlock;
 		}
 	}
 
 	final class ForEach implements StatementDef {
-		private final Variable variable;
+		private final VariableDef variable;
 		private final ExpressionDef expression;
-		private final Scope scope;
+		private final CodeBlock codeBlock;
 
-		public ForEach(Variable variable, ExpressionDef expression, Scope scope) {
+		public ForEach(VariableDef variable, ExpressionDef expression, CodeBlock codeBlock) {
 			this.variable = variable;
 			this.expression = expression;
-			this.scope = scope;
+			this.codeBlock = codeBlock;
 		}
 
-		public Variable getVariable() {
+		public VariableDef variable() {
 			return variable;
 		}
 
-		public ExpressionDef getExpression() {
+		public ExpressionDef expression() {
 			return expression;
 		}
 
-		public Scope getScope() {
-			return scope;
+		public CodeBlock codeBlock() {
+			return codeBlock;
 		}
 	}
 
@@ -253,54 +215,54 @@ public interface StatementDef extends ElementDef {
 
 	final class Synchronized implements StatementDef {
 		private final ExpressionDef lock;
-		private final Scope scope;
+		private final CodeBlock codeBlock;
 
-		public Synchronized(ExpressionDef lock, Scope scope) {
+		public Synchronized(ExpressionDef lock, CodeBlock codeBlock) {
 			this.lock = lock;
-			this.scope = scope;
+			this.codeBlock = codeBlock;
 		}
 
-		public ExpressionDef getLock() {
+		public ExpressionDef lock() {
 			return lock;
 		}
 
-		public Scope getScope() {
-			return scope;
+		public CodeBlock codeBlock() {
+			return codeBlock;
 		}
 	}
 
 	final class Increment implements ExpressionDef {
-		private final StatementDef.Variable variable;
+		private final VariableDef variable;
 		private final boolean postfix;
 
-		public Increment(StatementDef.Variable variable, boolean postfix) {
+		public Increment(VariableDef variable, boolean postfix) {
 			this.variable = variable;
 			this.postfix = postfix;
 		}
 
-		public StatementDef.Variable getVariable() {
+		public VariableDef variable() {
 			return variable;
 		}
 
-		public boolean isPostfix() {
+		public boolean postfix() {
 			return postfix;
 		}
 	}
 
 	final class Decrement implements ExpressionDef {
-		private final Variable variable;
+		private final VariableDef variable;
 		private final boolean postfix;
 
-		public Decrement(Variable variable, boolean postfix) {
+		public Decrement(VariableDef variable, boolean postfix) {
 			this.variable = variable;
 			this.postfix = postfix;
 		}
 
-		public StatementDef.Variable getVariable() {
+		public VariableDef variable() {
 			return variable;
 		}
 
-		public boolean isPostfix() {
+		public boolean postfix() {
 			return postfix;
 		}
 	}

@@ -5,7 +5,7 @@ public interface ClassName extends TypeDef {
 	/** This class is used to represent the reference to a class with {@link Class} */
 	@FunctionalInterface
 	interface Type extends ClassName {
-		Class<?> of();
+		Class<?> type();
 
 		static Type of(Class<?> type) {
 			return () -> type;
@@ -13,11 +13,11 @@ public interface ClassName extends TypeDef {
 	}
 
 	/** This class is used to represent the reference to a class with name and package */
-	final class Name implements ClassName {
+	final class Reference implements ClassName {
 		private final String className;
 		private final String packageName;
 
-		public Name(String className, String packageName) {
+		public Reference(String className, String packageName) {
 			this.className = className;
 			this.packageName = packageName;
 		}
@@ -35,7 +35,7 @@ public interface ClassName extends TypeDef {
 		return Type.of(type);
 	}
 
-	static ClassName name(String className, String packageName) {
-		return new Name(className, packageName);
+	static ClassName reference(String className, String packageName) {
+		return new Reference(className, packageName);
 	}
 }

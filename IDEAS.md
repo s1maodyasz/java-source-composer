@@ -1,1 +1,2 @@
 - Create a `t.java` file for create a template for a new .class
+- Reduce boilerplate code
